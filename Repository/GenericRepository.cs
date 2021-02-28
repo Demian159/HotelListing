@@ -13,11 +13,13 @@ namespace HotelListing.Repository
     {
         private readonly DatabaseContext _context;
         private readonly DbSet<T> _db;
+
         public GenericRepository(DatabaseContext context)
         {
             _context = context;
             _db = _context.Set<T>();
         }
+
         public async Task Delete(int id)
         {
             var entity = await _db.FindAsync(id);
@@ -39,16 +41,19 @@ namespace HotelListing.Repository
                     query = query.Include(includePropery);
                 }
             }
+            
             return await query.AsNoTracking().FirstOrDefaultAsync(expression);
         }
 
         public async Task<IList<T>> GetAll(Expression<Func<T, bool>> expression = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, List<string> includes = null)
         {
             IQueryable<T> query = _db;
+
             if (expression != null)
             {
                 query = query.Where(expression);
             }
+
             if (includes != null)
             {
                 foreach (var includePropery in includes)
@@ -56,10 +61,12 @@ namespace HotelListing.Repository
                     query = query.Include(includePropery);
                 }
             }
+
             if (orderBy != null)
             {
                 query = orderBy(query);
             }
+
             return await query.AsNoTracking().ToListAsync();
         }
 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HotelListing.IRepository;
 using HotelListing.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -18,12 +19,15 @@ namespace HotelListing.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<HotelController> _logger;
         private readonly IMapper _mapper;
-        public HotelController(IUnitOfWork unitOfWork, ILogger<HotelController> logger, IMapper mapper)
+
+        public HotelController(IUnitOfWork unitOfWork, ILogger<HotelController> logger,
+            IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
             _mapper = mapper;
         }
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -37,11 +41,12 @@ namespace HotelListing.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Something went wrong in the {nameof(GetHotels)}");
-                return StatusCode(500, "Internal Server Error, Please Try Again Later.");
+                _logger.LogError(ex, $"Something Went Wrong in the {nameof(GetHotels)}");
+                return StatusCode(500, "Internal Server Error. Please Try Again Later.");
             }
         }
 
+        [Authorize]
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -55,8 +60,8 @@ namespace HotelListing.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Something went wrong in the {nameof(GetHotel)}");
-                return StatusCode(500, "Internal Server Error, Please Try Again Later.");
+                _logger.LogError(ex, $"Something Went Wrong in the {nameof(GetHotel)}");
+                return StatusCode(500, "Internal Server Error. Please Try Again Later.");
             }
         }
     }

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HotelListing.Configurations
+namespace HotelListing.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -18,12 +18,15 @@ namespace HotelListing.Configurations
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<CountryController> _logger;
         private readonly IMapper _mapper;
-        public CountryController(IUnitOfWork unitOfWork, ILogger<CountryController> logger, IMapper mapper)
+
+        public CountryController(IUnitOfWork unitOfWork, ILogger<CountryController> logger, 
+            IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
             _mapper = mapper;
         }
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -37,8 +40,8 @@ namespace HotelListing.Configurations
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Something went wrong in the {nameof(GetCountries)}");
-                return StatusCode(500, "Internal Server Error, Please Try Again Later.");
+                _logger.LogError(ex, $"Something Went Wrong in the {nameof(GetCountries)}");
+                return StatusCode(500, "Internal Server Error. Please Try Again Later.");
             }
         }
 
@@ -49,14 +52,14 @@ namespace HotelListing.Configurations
         {
             try
             {
-                var country = await _unitOfWork.Countries.Get(q => q.Id == id, new List<string> {"Hotels"});
+                var country = await _unitOfWork.Countries.Get(q => q.Id == id, new List<string> { "Hotels" });
                 var result = _mapper.Map<CountryDTO>(country);
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Something went wrong in the {nameof(GetCountry)}");
-                return StatusCode(500, "Internal Server Error, Please Try Again Later.");
+                _logger.LogError(ex, $"Something Went Wrong in the {nameof(GetCountry)}");
+                return StatusCode(500, "Internal Server Error. Please Try Again Later.");
             }
         }
     }
