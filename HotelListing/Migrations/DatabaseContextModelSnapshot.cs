@@ -15,9 +15,9 @@ namespace HotelListing.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.3")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "5.0.1");
 
             modelBuilder.Entity("HotelListing.Data.ApiUser", b =>
                 {
@@ -95,7 +95,7 @@ namespace HotelListing.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -133,7 +133,7 @@ namespace HotelListing.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -209,15 +209,15 @@ namespace HotelListing.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "49c6d45c-e735-408d-bca9-36ece4c4198e",
-                            ConcurrencyStamp = "90a71c1d-4756-4b78-bd28-9230de97f3b5",
+                            Id = "58930d31-7e48-4577-b467-4ae0de30d755",
+                            ConcurrencyStamp = "e5b508e1-c6fb-4104-bccc-b132923ce772",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "3d9914cd-d6fe-4e06-adac-b0bf7a111c8e",
-                            ConcurrencyStamp = "91d75eee-dade-45c1-979f-a01961695618",
+                            Id = "4b8732f4-63dc-4a82-b507-2458120bc722",
+                            ConcurrencyStamp = "81444645-6c44-4b23-a775-62be8f8b462f",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -228,7 +228,7 @@ namespace HotelListing.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -252,7 +252,7 @@ namespace HotelListing.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");

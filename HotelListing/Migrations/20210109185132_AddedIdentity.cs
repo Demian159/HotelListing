@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HotelListing.Migrations
 {
-    public partial class Ahora : Migration
+    public partial class AddedIdentity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,20 +46,6 @@ namespace HotelListing.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Countries",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ShortName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Countries", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -168,62 +154,6 @@ namespace HotelListing.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Hotels",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Rating = table.Column<double>(type: "float", nullable: false),
-                    CountryId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Hotels", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Hotels_Countries_CountryId",
-                        column: x => x.CountryId,
-                        principalTable: "Countries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { "49c6d45c-e735-408d-bca9-36ece4c4198e", "90a71c1d-4756-4b78-bd28-9230de97f3b5", "User", "USER" },
-                    { "3d9914cd-d6fe-4e06-adac-b0bf7a111c8e", "91d75eee-dade-45c1-979f-a01961695618", "Administrator", "ADMINISTRATOR" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Countries",
-                columns: new[] { "Id", "Name", "ShortName" },
-                values: new object[,]
-                {
-                    { 1, "Jamaica", "JM" },
-                    { 2, "Bahamas", "BS" },
-                    { 3, "Cayman Island", "CI" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Hotels",
-                columns: new[] { "Id", "Address", "CountryId", "Name", "Rating" },
-                values: new object[] { 1, "Negril", 1, "Sandals Resort and Spa", 4.5 });
-
-            migrationBuilder.InsertData(
-                table: "Hotels",
-                columns: new[] { "Id", "Address", "CountryId", "Name", "Rating" },
-                values: new object[] { 3, "Nassua", 2, "Grand Palldium", 4.0 });
-
-            migrationBuilder.InsertData(
-                table: "Hotels",
-                columns: new[] { "Id", "Address", "CountryId", "Name", "Rating" },
-                values: new object[] { 2, "George Town", 3, "Comfort Suites", 4.2999999999999998 });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -262,11 +192,6 @@ namespace HotelListing.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Hotels_CountryId",
-                table: "Hotels",
-                column: "CountryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -287,16 +212,10 @@ namespace HotelListing.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Hotels");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Countries");
         }
     }
 }
